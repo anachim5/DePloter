@@ -92,10 +92,7 @@ class windowManager():
         self.menubar.add_cascade(label="Help", menu=help)  
     #draw button to draw plot
     def drawPlotButton(self):
-        plot_button = Button(master = self.rightMenu,command = self.drawPlot,height = 2,width = 10,text = "Plot").grid(column=0,row=2)
-    #draw plot
-    def drawPlot(self):
-        self.plot.drawPlot(self.data)
+        plot_button = Button(master = self.rightMenu,command = self.chooseTypeOfPlot,height = 2,width = 10,text = "Plot").grid(column=0,row=2)
     #menu to modify plot type
     def definePlotType(self):
 
@@ -104,24 +101,60 @@ class windowManager():
         
         lbl = Label(plotTypeFrame,text = "Choose type of plot").pack()
   
-        listbox = Listbox(plotTypeFrame)
+        self.listbox = Listbox(plotTypeFrame)
         
-        listbox.insert(1,"India")  
+        self.listbox.insert(1,"Plot")  
         
-        listbox.insert(2, "USA")  
+        self.listbox.insert(2, "Histogram")  
         
-        listbox.insert(3, "Japan")  
+        self.listbox.insert(3, "Scatter plot")  
         
-        listbox.insert(4, "Austrelia")  
+        self.listbox.insert(4, "Pie chart")  
         
-        listbox.pack()
+        self.listbox.insert(5,"Polar plot")
+
+        self.listbox.insert(6,"Bar chart")
+        
+        self.listbox.pack()
                 
         #this button will choose the selected item from the list   
         
-        btn = Button(plotTypeFrame, text = "Choose", ).pack()
+        btn = Button(plotTypeFrame, text = "Choose", command=self.selected_item).pack()
         plotTypeFrame.grid(row=1,column=0,sticky=N)
+    
 
+    # ***** draw types of plots ******
+
+    def chooseTypeOfPlot(self):
+        if self.typeOfPlot=="Plot":self.drawPlot()
+        if self.typeOfPlot=="Histogram":self.drawHistogram()
+        if self.typeOfPlot=="Scatter plot":self.drawScatter()
+        if self.typeOfPlot=="Pie chart":self.drawPieChart()
+        if self.typeOfPlot=="Polar plot":self.drawPolar()
+        if self.typeOfPlot=="Bar chart":self.drawBarChart()
+
+    def selected_item(self):
+        for i in self.listbox.curselection():
+            self.typeOfPlot=self.listbox.get(i)
+            print("Type of plot : "+self.typeOfPlot)
     #draw empty plot
     def drawEmptyPlot(self):
         self.plot.drawEmpty()
-  
+    #draw plot
+    def drawPlot(self):
+        self.plot.drawPlot(self.data)
+    #draw histogram
+    def drawHistogram(self):
+        self.plot.drawHistogram(self.data,10)
+    #draw scatter
+    def drawScatter(self):
+        self.plot.drawScatter(self.data)
+    #draw pie chart
+    def drawPieChart(self):
+        self.plot.drawPieChart(self.data)
+    #draw polar plot
+    def drawPolar(self):
+        self.plot.drawPolarPlot(self.data)
+    #draw bar char 
+    def drawBarChart(self):
+        self.plot.drawBarChart(self.data)
