@@ -8,6 +8,7 @@ class windowManager():
     #fields
     filename=""
     data=""
+    bins=10
 
     #create a windows of the application
     def __init__(self):    
@@ -35,6 +36,7 @@ class windowManager():
         self.drawPlotButton()
         #draw a frame containing a list of types of plots
         self.definePlotType()
+        self.binexists=False
         self.window.mainloop()
     
     #create a function to read files
@@ -96,12 +98,12 @@ class windowManager():
     #menu to modify plot type
     def definePlotType(self):
 
-        plotTypeFrame = Frame(master=self.rightMenu)
+        self.plotTypeFrame = Frame(master=self.rightMenu)
         
         
-        lbl = Label(plotTypeFrame,text = "Choose type of plot").pack()
+        lbl = Label(self.plotTypeFrame,text = "Choose type of plot").pack()
   
-        self.listbox = Listbox(plotTypeFrame)
+        self.listbox = Listbox(self.plotTypeFrame)
         
         self.listbox.insert(1,"Plot")  
         
@@ -119,8 +121,13 @@ class windowManager():
                 
         #this button will choose the selected item from the list   
         
-        btn = Button(plotTypeFrame, text = "Choose", command=self.selected_item).pack()
-        plotTypeFrame.grid(row=1,column=0,sticky=N)
+        btn = Button(self.plotTypeFrame, text = "Choose", command=self.selected_item).pack()
+        # this entry will allow to choose number of bins
+        binsLabel=Label(self.plotTypeFrame,text="If using histogram enter number of bins").pack()
+        self.binsV=0
+        binsEntry=Entry(self.plotTypeFrame,textvariable=self.binsV).pack()
+        self.binsButton=Button(self.plotTypeFrame,command=self.getBins,text="ok").pack()
+        self.plotTypeFrame.grid(row=1,column=0,sticky=N)
     
 
     # ***** draw types of plots ******
@@ -133,28 +140,58 @@ class windowManager():
         if self.typeOfPlot=="Polar plot":self.drawPolar()
         if self.typeOfPlot=="Bar chart":self.drawBarChart()
 
+    
+    # select item chosen on the list of plots 
     def selected_item(self):
         for i in self.listbox.curselection():
             self.typeOfPlot=self.listbox.get(i)
             print("Type of plot : "+self.typeOfPlot)
+
     #draw empty plot
     def drawEmptyPlot(self):
         self.plot.drawEmpty()
+
     #draw plot
     def drawPlot(self):
-        self.plot.drawPlot(self.data)
+        try:
+            self.plot.drawPlot(self.data)
+        except:
+            pass
+
     #draw histogram
     def drawHistogram(self):
-        self.plot.drawHistogram(self.data,10)
+        try:
+            self.plot.drawHistogram(self.data,self.bins)
+        except:
+            pass
+
     #draw scatter
     def drawScatter(self):
-        self.plot.drawScatter(self.data)
+        try:
+            self.plot.drawScatter(self.data)
+        except:
+            pass
+    
     #draw pie chart
     def drawPieChart(self):
-        self.plot.drawPieChart(self.data)
+        try:
+            self.plot.drawPieChart(self.data)
+        except:
+            pass
+    
     #draw polar plot
     def drawPolar(self):
-        self.plot.drawPolarPlot(self.data)
+        try:
+            self.plot.drawPolarPlot(self.data)
+        except:
+            pass
+    
     #draw bar char 
     def drawBarChart(self):
         self.plot.drawBarChart(self.data)
+    
+   
+    # get number of bins
+    def getBins(self):
+        self.bins=self.binsV.get()
+        print(self.bins)
