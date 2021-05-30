@@ -95,7 +95,7 @@ class windowManager():
         plot_button = Button(master = self.rightMenu,command = self.drawPlot,height = 2,width = 10,text = "Plot").grid(column=0,row=2)
     #draw plot
     def drawPlot(self):
-        self.plot.drawPlot()
+        self.plot.drawPlot(self.data)
     #menu to modify plot type
     def definePlotType(self):
 

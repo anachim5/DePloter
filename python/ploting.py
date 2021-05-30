@@ -28,15 +28,16 @@ class drawPlot():
         #grid the plot frame
         self.plotFrame.grid(row=0,column=0)
     #draw plot
-    def drawPlot(self):
+    def drawPlot(self,data):
 
-         # list of squares
-        y = [i**2 for i in range(101)]
+         # process data
+        x_values=data[0]
+        y_values=data[1]
     
         # adding the subplot
         self.plot1 = self.fig.add_subplot(111)
         # plotting the graph
-        self.plot1.plot(y)
+        self.plot1.plot(x_values,y_values)
         #drawing plot into the window
         self.draw()
 
@@ -49,6 +50,5 @@ class drawPlot():
         #drawing plot into the window
         self.draw()
 
-    
 
 
