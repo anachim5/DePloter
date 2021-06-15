@@ -8,7 +8,9 @@ dragged around and printed to desired format.
 python3 main.py
 ```
 *Windows*
-Todo
+```
+python3 main.py
+```
 ## Requirements
 * Python3
 * Matplotlib
