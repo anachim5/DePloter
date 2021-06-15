@@ -11,17 +11,18 @@ class drawPlot():
     def draw(self):       
         #frame to position plot and its toolbar
         self.plotFrame=Frame(master=self.window)
-        # creating the Tkinter canvas
-        # containing the Matplotlib figure
+        # creating the Tkinter canvas containing the Matplotlib figure
         self.canvas = FigureCanvasTkAgg(self.fig,master = self.plotFrame)  
         self.canvas.draw()
     
         # placing the canvas on the Tkinter window
         self.canvas.get_tk_widget().grid(column=0,row=0)
+
         # creating the Matplotlib toolbar and putting it into the frame
         self.toolbarFrame = Frame(master=self.plotFrame)
         self.toolbarFrame.grid(row=1,column=0)
         self.toolbar = NavigationToolbar2Tk(self.canvas, self.toolbarFrame)
+
         #grid the plot frame
         self.plotFrame.grid(row=0,column=0)
     
@@ -41,7 +42,7 @@ class drawPlot():
 
     #standard plot
     def drawPlot(self,data):
-
+        self.fig.clear()
          # process data
         x_values=data[0]
         y_values=data[1]
@@ -50,11 +51,14 @@ class drawPlot():
         self.plot1 = self.fig.add_subplot(111)
         # plotting the graph
         self.plot1.plot(x_values,y_values)
+  
         #drawing plot into the window
         self.draw()
 
     # histogram
     def drawHistogram(self,data,bins):
+        self.fig.clear()
+
         #data
         values = data[0]
         #bins
@@ -69,6 +73,7 @@ class drawPlot():
 
     # scatter plot
     def drawScatter(self,data):
+        self.fig.clear()
          # process data
         x_values=data[0]
         y_values=data[1]
@@ -77,11 +82,13 @@ class drawPlot():
         self.plot1 = self.fig.add_subplot(111)
         # plotting the graph
         self.plot1.scatter(x_values,y_values)
+
         #drawing plot into the window
         self.draw()
 
     # pie chart  
     def drawPieChart(self,data):
+        self.fig.clear()
         values=data[0]
         labels=data[1]
         # adding the subplot
@@ -92,6 +99,7 @@ class drawPlot():
         pass
 
     def drawPolarPlot(self,data):
+        self.fig.clear()
          # process data
         x_values=data[0]
         y_values=data[1]
@@ -103,6 +111,7 @@ class drawPlot():
         #drawing plot into the window
         self.draw()
     def drawBarChart(self,data):
+        self.fig.clear()
          # process data
         x_values=data[0]
         y_values=data[1]
@@ -111,5 +120,6 @@ class drawPlot():
         self.plot1 = self.fig.add_subplot(111)
         # plotting the graph
         self.plot1.bar(x_values,y_values)
+       
         #drawing plot into the window
         self.draw()

@@ -20,14 +20,18 @@ class windowManager():
         self.window.geometry("1000x900")
         # set window background color
         self.window.configure(bg='lightgray')
+
         #right frame
         self.rightMenu=Frame(self.window)
         self.rightMenu.grid(row = 0,column=1,sticky=NE)
+
         #menu bar
         self.menubar()
         self.window.config(menu=self.menubar)
+
         #fileopenbutton
         self.openFileButton()
+
         #class containing a plot
         self.plot=ploting.drawPlot(self.window)
         #draw empty plot
@@ -36,12 +40,13 @@ class windowManager():
         self.drawPlotButton()
         #draw a frame containing a list of types of plots
         self.definePlotType()
+        
         self.binexists=False
         self.window.mainloop()
     
     #create a function to read files
     def selectFile(self):
-        filetypes = (('data files', '*.txt,*.csv,*.xlsx'),('All files', '*.*'))
+        filetypes = (('Data types','.xlsx,.csv,.txt'),('All files', '*.*'))
 
         self.filename = filedialog.askopenfilename(title='Open a file',initialdir=pwd,filetypes=filetypes)
         print(self.filename)
@@ -92,9 +97,11 @@ class windowManager():
         help = Menu(self.menubar, tearoff=0)  
         help.add_command(label="About")  
         self.menubar.add_cascade(label="Help", menu=help)  
+
     #draw button to draw plot
     def drawPlotButton(self):
         plot_button = Button(master = self.rightMenu,command = self.chooseTypeOfPlot,height = 2,width = 10,text = "Plot").grid(column=0,row=2)
+
     #menu to modify plot type
     def definePlotType(self):
 
@@ -124,9 +131,10 @@ class windowManager():
         btn = Button(self.plotTypeFrame, text = "Choose", command=self.selected_item).pack()
         # this entry will allow to choose number of bins
         binsLabel=Label(self.plotTypeFrame,text="If using histogram enter number of bins").pack()
-        self.binsV=0
-        binsEntry=Entry(self.plotTypeFrame,textvariable=self.binsV).pack()
-        self.binsButton=Button(self.plotTypeFrame,command=self.getBins,text="ok").pack()
+        binsEntry=Entry(self.plotTypeFrame,textvariable=self.bins).pack()
+
+        self.binsButton=Button(self.plotTypeFrame,text="ok").pack()
+
         self.plotTypeFrame.grid(row=1,column=0,sticky=N)
     
 
@@ -191,7 +199,5 @@ class windowManager():
         self.plot.drawBarChart(self.data)
     
    
-    # get number of bins
-    def getBins(self):
-        self.bins=self.binsV.get()
-        print(self.bins)
+    # TODO get number of bins
+  

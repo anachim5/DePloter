@@ -1,7 +1,5 @@
 import os
-from sys import path
 import pandas as pd
-pwd = os.getcwd()
 
 class DataProc():
     file_name=""
